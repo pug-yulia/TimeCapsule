@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.TimeCapsule.security.*;
+import com.project.TimeCapsule.service.CustomUserDetailsService;
+import com.project.TimeCapsule.service.UserService;
 import com.project.TimeCapsule.domain.*;
 
 @Controller

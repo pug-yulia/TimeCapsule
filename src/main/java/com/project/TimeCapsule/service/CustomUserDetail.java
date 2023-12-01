@@ -1,4 +1,4 @@
-package com.project.TimeCapsule.security;
+package com.project.TimeCapsule.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.project.TimeCapsule.domain.AppUser;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +20,10 @@ public class CustomUserDetail implements UserDetails {
     }
 
     @Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return List.of(() -> user.getRole());
-	}
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+    }
+
 	
     public String getEmail() {
         return user.getEmail();

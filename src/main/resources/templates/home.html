@@ -3,9 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #45b6fe;
+            padding: 15px;
+            text-align: center;
+            background-color: #0e2433;
+            color: white;
+        }
+
+        th {
+            background-color: #45b6fe;
+            color: white;
+        }
+
+        button {
+            background-color: #45b6fe;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Make vertical borders the color of the background */
+		th, td {
+   		 	border-left: 1px solid #0e2433;
+    		border-right: 1px solid #0e2433;
+		
+		}
+		h1 {
+            color: #45b6fe;
+        }
+    </style>
 </head>
 <body>
-    <h2> Welcome, <span th:text="${username}"></span>!</h2>
-    <p><a href="/logout">Logout</a></p>
+    <h1>Welcome, <span th:text="${username}"></span>!</h1>
+     <p><a href="/logout"><button>Logout</button></a></p>
+
+    <h3>Your Time Capsules:</h3>
+
+    <!-- Display notes in a table -->
+    <table class="note-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Creation Date</th>
+                <th>Open Date</th>
+                <th>Read note</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the list of capsule notes and display each one -->
+            <tr th:each="note : ${capsuleNotes}">
+                <!-- Display note details, modify this based on your CapsuleNote fields -->
+                <td th:text="${note.title}"></td>
+                <td th:text="${note.creationDate}"></td>
+                <td th:text="${note.openDate}"></td>
+                <td>
+                    <!-- Add a link to view the full note -->
+                 <a th:href="@{/view-note/{id}(id=${note.id})}"><button>Open</button></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add a button or link to create a new capsule note -->
+   <p><a href="/create-note"><button>Create New Capsule</button></a></p>
 </body>
 </html>

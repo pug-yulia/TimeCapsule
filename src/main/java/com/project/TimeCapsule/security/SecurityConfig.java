@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.project.TimeCapsule.service.CustomUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -32,13 +34,14 @@ public class SecurityConfig {
 		@Bean
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http.csrf().disable()
-	                .authorizeRequests(authorizeRequests ->
-	                        authorizeRequests
-	                                .requestMatchers("/", "/home", "/register", "/login", "/css/**").permitAll()
-	                                .requestMatchers("/admin-page").hasAuthority("ADMIN")
-	                                .requestMatchers("/user-page").hasAuthority("USER")
-	                                .anyRequest().authenticated()
-	                )
+	        		.authorizeRequests(authorizeRequests ->
+	        				authorizeRequests
+	        						.requestMatchers("/admin-page").hasAuthority("ADMIN")
+	        						.requestMatchers("/user-page").hasAuthority("USER")
+	        						.requestMatchers("/login", "/register", "/error", "/css/**").permitAll()
+	        						.requestMatchers("/", "/home").authenticated()
+	        						.anyRequest().authenticated()
+	        		)
 	                .formLogin(form ->
 	                        form
 	                                .loginPage("/login")

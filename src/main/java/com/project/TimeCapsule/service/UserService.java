@@ -1,4 +1,4 @@
-package com.project.TimeCapsule.security;
+package com.project.TimeCapsule.service;
 
 import com.project.TimeCapsule.domain.*;
 

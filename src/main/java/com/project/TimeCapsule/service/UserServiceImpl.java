@@ -1,4 +1,4 @@
-package com.project.TimeCapsule.security;
+package com.project.TimeCapsule.service;
 
 import java.util.Collections;
 
@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.TimeCapsule.domain.*;
+import com.project.TimeCapsule.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

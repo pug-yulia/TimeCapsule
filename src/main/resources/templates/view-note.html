@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>View Note</title>
+<link rel="stylesheet" th:href="@{../css/styles.css}">
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #0e2433;
+	color: white;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #0e2433;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+	color: #45b6fe;
+}
+
+p {
+	text-align: left;
+	margin-top: 15px;
+}
+
+span {
+	color: white; /* Set text color to white */
+	font-weight: bold;
+}
+
+span.title {
+	color: #45b6fe; /* Set title color to blue */
+}
+
+input[type="submit"] {
+	background-color: #e74c3c;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+a {
+	color: #45b6fe;
+	text-decoration: none;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2 th:text="${note.title}"></h2>
+		<p>
+			<span class="title"></span> <span th:text="${note.message}"></span>
+		</p>
+		<p>
+			<span class="title">Creation Date:</span> <span
+				th:text="${note.creationDate}"></span>
+		</p>
+		<p>
+			<span class="title">Open Date:</span> <span
+				th:text="${note.openDate}"></span>
+		</p>
+
+		<!-- Form for deleting the note -->
+		<form th:action="@{'/delete-note/' + ${note.id}}" method="post"
+			onsubmit="return confirm('Are you sure you want to delete this note?');">
+			<input type="submit" value="Delete Note">
+		</form>
+
+		<p>
+			<a th:href="@{/home}">Back to Home</a>
+		</p>
+	</div>
+</body>
+</html>
