@@ -1,34 +1,41 @@
 package com.project.TimeCapsule.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.List;
+import java.util.Set;
+
+import jakarta.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class AppUser {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @Column(unique = true)
+	private String email;
+	private String password;
+	private String role;
+	private String nickname;
+	private String username;
+	
+	public AppUser() {
+		super();
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nickname;
-    private String email;
-    private String username;
-    private String password;
-
-
-    public AppUser() {
-        // Default constructor
-    }
-
-    public AppUser(String nickname, String email, String username, String password) {
-        this.nickname = nickname;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
-
+	public AppUser(String email, String password, String role, String nickname, String username) {
+		
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.nickname = nickname;
+		this.username = username;		
+	}
 
     public Long getId() {
         return id;
@@ -69,4 +76,12 @@ public class AppUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

@@ -1,20 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<link rel="stylesheet" th:href="@{../css/styles.css}">
 </head>
 <body>
-    <h2>Register</h2>
-    <form th:action="@{/register}" method="post">
-        <label>Email:</label>
-        <input type="text" name="username" required/>
-        <br>
-        <label>Password:</label>
-        <input type="password" name="password" required/>
-        <br>
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a th:href="@{/login}">Log In</a></p>
+	<div class="container">
+		<h2>Registration Form</h2>
+
+		<div class="error" th:if="${error}" th:text="${error}"></div>
+
+		<form th:action="@{/register}" method="post" role="form"
+			th:object="${user}">
+
+			<div class="form-group">
+				<label for="nickname">Nickname:</label> <input
+					th:field="*{nickname}" type="text" id="nickname" name="nickname"
+					placeholder="Enter your nickname" required>
+			</div>
+
+			<div class="form-group">
+				<label for="username">Username:</label> <input
+					th:field="*{username}" type="text" id="username" name="username"
+					placeholder="Enter your username" required>
+			</div>
+
+			<div class="form-group">
+				<label for="email">Email:</label> <input th:field="*{email}"
+					type="email" id="email" name="email" placeholder="Enter your email"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="password">Password:</label> <input
+					th:field="*{password}" type="password" id="password"
+					name="password" placeholder="Enter your password" required>
+			</div>
+			<input type="submit" value="Register">
+		</form>
+	</div>
 </body>
 </html>

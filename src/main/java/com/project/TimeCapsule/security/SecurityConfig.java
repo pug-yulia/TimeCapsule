@@ -1,64 +1,66 @@
 package com.project.TimeCapsule.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .requestMatchers("/", "/register", "/custom-login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/custom-login")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
-    }
 
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-    }
+	 private final CustomSuccessHandler customSuccessHandler;
+	    private final CustomUserDetailsService customUserDetailsService;
+	    private final PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	    @Autowired
+	    public SecurityConfig(CustomSuccessHandler customSuccessHandler, CustomUserDetailsService customUserDetailsService,
+	                          PasswordEncoder passwordEncoder) {
+	        this.customSuccessHandler = customSuccessHandler;
+	        this.customUserDetailsService = customUserDetailsService;
+	        this.passwordEncoder = passwordEncoder;
+	    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .build();
+	    @SuppressWarnings("deprecation")
+		@Bean
+	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	        http.csrf().disable()
+	                .authorizeRequests(authorizeRequests ->
+	                        authorizeRequests
+	                                .requestMatchers("/", "/home", "/register", "/login", "/css/**").permitAll()
+	                                .requestMatchers("/admin-page").hasAuthority("ADMIN")
+	                                .requestMatchers("/user-page").hasAuthority("USER")
+	                                .anyRequest().authenticated()
+	                )
+	                .formLogin(form ->
+	                        form
+	                                .loginPage("/login")
+	                                .loginProcessingUrl("/login")
+	                                .successHandler(new CustomSuccessHandler())
+	                                .permitAll()
+	                )
+	                .logout(logout ->
+	                        logout
+	                                .invalidateHttpSession(true)
+	                                .clearAuthentication(true)
+	                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	                                .logoutSuccessUrl("/login?logout")
+	                                .permitAll()
+	                );
 
-        return new CustomUserDetailsService(user);
-    }
+	        return http.build();
+	    }
 
-    public static class CustomUserDetailsService implements UserDetailsService {
-        private final UserDetails user;
+	    @Autowired
+	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
+	    }
 
-        public CustomUserDetailsService(UserDetails user) {
-            this.user = user;
-        }
-
-        @Override
-        public UserDetails loadUserByUsername(String username) {
-            // Load user details from your actual user repository or database
-            return user;
-        }
-    }
 }
