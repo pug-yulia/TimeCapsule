@@ -25,8 +25,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/admin-page");
 			break;
 		case "USER":
-			System.out.println("User has USER role. Redirecting to /index");
-			response.sendRedirect("/index");
+			System.out.println("User has USER role. Redirecting to /home");
+			response.sendRedirect("/home");
 			break;
 		default:
 			System.out.println("Unknown role. Redirecting to /error");

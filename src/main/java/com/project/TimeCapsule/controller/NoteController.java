@@ -62,7 +62,7 @@ public class NoteController {
 
 		capsuleNoteService.saveCapsuleNote(newNote);
 
-		return "redirect:/index";
+		return "redirect:/home";
 	}
 
 	@GetMapping("/view-note/{id}")
@@ -81,14 +81,14 @@ public class NoteController {
 			}
 		} else {
 			// Handle the case where the note with the given ID is not found
-			return "redirect:/index";
+			return "redirect:/home";
 		}
 	}
 
 	@PostMapping("/delete-note/{id}")
 	public String deleteNote(@PathVariable Long id) {
 		capsuleNoteService.deleteCapsuleNoteById(id);
-		return "redirect:/index";
+		return "redirect:/home";
 	}
 
 }

@@ -22,13 +22,18 @@ public class HomeController {
 	public HomeController(CapsuleNoteService capsuleNoteService) {
 		this.capsuleNoteService = capsuleNoteService;
 	}
+	
+	@GetMapping("/index")
+    public String showIndexPage() {
+        return "index";
+    }
 
 	@GetMapping("/")
 	public String redirectToLogin() {
-		return "redirect:/login";
+		return "redirect:/index";
 	}
 
-	@GetMapping("/index")
+	@GetMapping("/home")
 	public String home(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -42,6 +47,6 @@ public class HomeController {
 			System.out.println("Principal: " + authentication.getPrincipal());
 		}
 
-		return "index";
+		return "home";
 	}
 }

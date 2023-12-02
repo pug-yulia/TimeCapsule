@@ -38,8 +38,8 @@ public class SecurityConfig {
 	        				authorizeRequests
 	        						.requestMatchers("/admin-page").hasAuthority("ADMIN")
 	        						.requestMatchers("/user-page").hasAuthority("USER")
-	        						.requestMatchers("/login", "/register", "/error", "/css/**").permitAll()
-	        						.requestMatchers("/", "/index").authenticated()
+	        						.requestMatchers("/index", "/login", "/register", "/error", "/css/**", "/").permitAll()
+	        						.requestMatchers( "/home").authenticated()
 	        						.anyRequest().authenticated()
 	        		)
 	                .formLogin(form ->
