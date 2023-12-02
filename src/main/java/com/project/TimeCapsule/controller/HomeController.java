@@ -28,7 +28,7 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@GetMapping("/home")
+	@GetMapping("/index")
 	public String home(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -42,6 +42,6 @@ public class HomeController {
 			System.out.println("Principal: " + authentication.getPrincipal());
 		}
 
-		return "home";
+		return "index";
 	}
 }

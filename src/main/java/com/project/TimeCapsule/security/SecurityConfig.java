@@ -39,7 +39,7 @@ public class SecurityConfig {
 	        						.requestMatchers("/admin-page").hasAuthority("ADMIN")
 	        						.requestMatchers("/user-page").hasAuthority("USER")
 	        						.requestMatchers("/login", "/register", "/error", "/css/**").permitAll()
-	        						.requestMatchers("/", "/home").authenticated()
+	        						.requestMatchers("/", "/index").authenticated()
 	        						.anyRequest().authenticated()
 	        		)
 	                .formLogin(form ->
