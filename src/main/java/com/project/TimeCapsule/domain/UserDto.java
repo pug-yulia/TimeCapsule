@@ -39,7 +39,7 @@ public class UserDto {
 
 	public void setRole(String role) {
 		this.role = role;
-	} 
+	}
 
 	public String getUsername() {
 		return username;
@@ -48,7 +48,7 @@ public class UserDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}

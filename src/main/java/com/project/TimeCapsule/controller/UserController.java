@@ -32,16 +32,16 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-    public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
-        try {
-            userService.save(userDto);
-            model.addAttribute("message", "Registered Successfully!");
-            return "redirect:/login";
-        } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "register";
-        }
-    }
+	public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
+		try {
+			userService.save(userDto);
+			model.addAttribute("message", "Registered Successfully!");
+			return "redirect:/login";
+		} catch (RuntimeException e) {
+			model.addAttribute("error", e.getMessage());
+			return "register";
+		}
+	}
 
 	@GetMapping("/login")
 	public String login() {

@@ -2,34 +2,44 @@ package com.project.TimeCapsule.form;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CreateNoteForm {
 
-    private String title;
-    private String message;
-    private LocalDateTime openDate;
+	private String title;
+	private String message;
+	private LocalDateTime openDate;
 
-    // getters and setters
-    public String getTitle() {
-        return title;
-    }
+	// private MultipartFile image;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	// getters and setters
+	public String getTitle() {
+		return title;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public LocalDateTime getOpenDate() {
-        return openDate;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public void setOpenDate(LocalDateTime openDate) {
-        this.openDate = openDate;
-    }
+	public LocalDateTime getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(LocalDateTime openDate) {
+		this.openDate = openDate;
+	}
+
+	/*
+	 * public MultipartFile getImage() { return image; }
+	 * 
+	 * public void setImage(MultipartFile image) { this.image = image; }
+	 */
 }

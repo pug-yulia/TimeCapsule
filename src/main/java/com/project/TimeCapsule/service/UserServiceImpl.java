@@ -30,8 +30,7 @@ public class UserServiceImpl implements UserService {
 
 	    AppUser user = new AppUser(
 	        userDto.getEmail(),
-	        passwordEncoder.encode(userDto.getPassword()),
-	        defaultRole, // Set default role
+				passwordEncoder.encode(userDto.getPassword()), defaultRole, // Set default role
 	        userDto.getUsername(),
 	        userDto.getNickname()
 	    );

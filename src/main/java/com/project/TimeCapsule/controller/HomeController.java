@@ -15,33 +15,33 @@ import com.project.TimeCapsule.service.CapsuleNoteService;
 
 @Controller
 public class HomeController {
-	
+
 	private final CapsuleNoteService capsuleNoteService;
 
-    @Autowired
-    public HomeController(CapsuleNoteService capsuleNoteService) {
-        this.capsuleNoteService = capsuleNoteService;
-    }
-    
-    @GetMapping("/")
-    public String redirectToLogin() {
-        return "redirect:/login";
-    }
-    
-    @GetMapping("/home")
-    public String home(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	@Autowired
+	public HomeController(CapsuleNoteService capsuleNoteService) {
+		this.capsuleNoteService = capsuleNoteService;
+	}
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            model.addAttribute("username", username);
+	@GetMapping("/")
+	public String redirectToLogin() {
+		return "redirect:/login";
+	}
 
-            // Retrieve and display capsule notes for the current user
-            List<CapsuleNote> capsuleNotes = capsuleNoteService.getAllCapsuleNotesForCurrentUser();
-            model.addAttribute("capsuleNotes", capsuleNotes);
-            System.out.println("Principal: " + authentication.getPrincipal());
-        }
+	@GetMapping("/home")
+	public String home(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return "home";
-    }
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			model.addAttribute("username", username);
+
+			// Retrieve and display capsule notes for the current user
+			List<CapsuleNote> capsuleNotes = capsuleNoteService.getAllCapsuleNotesForCurrentUser();
+			model.addAttribute("capsuleNotes", capsuleNotes);
+			System.out.println("Principal: " + authentication.getPrincipal());
+		}
+
+		return "home";
+	}
 }

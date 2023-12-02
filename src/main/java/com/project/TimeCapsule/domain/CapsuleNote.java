@@ -7,79 +7,89 @@ import java.time.LocalDateTime;
 @Entity
 public class CapsuleNote {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    @Column(columnDefinition = "TEXT")
-    private String message;
-    private LocalDate creationDate;
-    private LocalDateTime openDate;
-    private String username; 
-    
-    // Empty constructor
-    public CapsuleNote() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	@Column(columnDefinition = "TEXT")
+	private String message;
+	private LocalDate creationDate;
+	private LocalDateTime openDate;
+	private String username;
 
-    }
+	// @Lob
+	// @Column(length = 100000)
+	// private byte[] imageData;
 
-    public CapsuleNote(String title, String message, LocalDate creationDate, LocalDateTime openDate) {
-        this.title = title;
-        this.message = message;
-        this.creationDate = creationDate;
-        this.openDate = openDate;
-    }
+	// Empty constructor
+	public CapsuleNote() {
 
-    // Getters and setters
-    public Long getId() {
-        return id;
-    }
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public CapsuleNote(String title, String message, LocalDate creationDate, LocalDateTime openDate) {
+		this.title = title;
+		this.message = message;
+		this.creationDate = creationDate;
+		this.openDate = openDate;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	// Getters and setters
+	public Long getId() {
+		return id;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public LocalDateTime getOpenDate() {
-        return openDate;
-    }
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
 
-    public void setOpenDate(LocalDateTime openDate) {
-        this.openDate = openDate;
-    }
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public LocalDateTime getOpenDate() {
+		return openDate;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setOpenDate(LocalDateTime openDate) {
+		this.openDate = openDate;
+	}
 
-    public boolean canBeOpened() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        return currentDateTime.isAfter(openDate);
-    }
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public boolean canBeOpened() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		return currentDateTime.isAfter(openDate);
+	}
+
+	/*
+	 * public byte[] getImageData() { return imageData; }
+	 * 
+	 * public void setImageData(byte[] imageData) { this.imageData = imageData; }
+	 */
 }

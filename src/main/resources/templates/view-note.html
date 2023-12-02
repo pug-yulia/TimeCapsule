@@ -72,6 +72,7 @@ a {
 				th:text="${note.openDate}"></span>
 		</p>
 
+		<!--<img th:if="${note.imageData}" th:src="'data:image/jpeg;base64,' + ${#strings.bytes(note.imageData)}" alt="Note Image"/>-->
 		<!-- Form for deleting the note -->
 		<form th:action="@{'/delete-note/' + ${note.id}}" method="post"
 			onsubmit="return confirm('Are you sure you want to delete this note?');">
